@@ -15,63 +15,65 @@
   </head>
   <body>
     <div class="container">
-      <div class="weather-app">
-        <form id="search-form" class="mb-3">
-          <div class="row">
-            <div class="col-9">
-              <input
-                type="search"
-                placeholder="Search location"
-                class="form-control"
-                id="city-input"
-                autocomplete="off"
-              />
+      <div class="weather-app-wrapper">
+        <div class="weather-app">
+          <form id="search-form" class="mb-3">
+            <div class="row">
+              <div class="col-9">
+                <input
+                  type="search"
+                  placeholder="Search location"
+                  class="form-control"
+                  id="city-input"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-3">
+                <input
+                  type="submit"
+                  value="search"
+                  class="btn btn-primary w-100"
+                />
+              </div>
             </div>
-            <div class="col-3">
-              <input
-                type="submit"
-                value="search"
-                class="btn btn-primary w-100"
-              />
+          </form>
+
+          <div class="icon">
+            <img
+              src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+              alt="cloudy"
+              id="icon"
+            />
+          </div>
+
+          <h1 id="city"></h1>
+
+          <h2 id="date"></h2>
+
+          <div class="d-flex weather-temperature">
+            <div>
+              <strong id="temperature"></strong
+              ><span class="units">
+                <a href="#" id="celsius-link" class="active">°C</a> |
+                <a href="#" id="fahrenheit-link">°F</a></span
+              >
             </div>
           </div>
-        </form>
 
-        <div class="icon">
-          <img
-            src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-            alt="cloudy"
-            id="icon"
-          />
+          <h4 id="description"></h4>
+          <ul>
+            <li>Humidity: <span id="humidity"></span>%</li>
+            <li>Wind: <span id="wind"></span> km/h</li>
+          </ul>
         </div>
-
-        <h1 id="city"></h1>
-
-        <h2 id="date"></h2>
-
-        <div class="d-flex weather-temperature">
-          <div>
-            <strong id="temperature"></strong
-            ><span class="units">
-              <a href="#" id="celsius-link" class="active">°C</a> |
-              <a href="#" id="fahrenheit-link">°F</a></span
-            >
-          </div>
-        </div>
-
-        <h4 id="description"></h4>
-        <ul>
-          <li>Humidity: <span id="humidity"></span>%</li>
-          <li>Wind: <span id="wind"></span> km/h</li>
-        </ul>
       </div>
+      <small>
+        <a href="https://github.com/rae8108/v-weather-app" target="_blank"
+          >Open-source code</a
+        >
+        by Rayan Bana
+      </small>
     </div>
-    <small>
-      <a href="https://github.com/rae8108/v-weather-app" target="_blank"
-        >Open-source code</a
-      >
-      by Rayan Bana
-    </small>
 
     <script src="src/app.js"></script>
   </body>
