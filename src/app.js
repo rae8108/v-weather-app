@@ -1,22 +1,3 @@
-function displayTemperature(response) {
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(response.data.temperature.current);
-  let cityElement = document.querySelector("#city");
-  cityElement.innerHTML = response.data.city;
-  let descriptionElement = document.querySelector("#description");
-  descriptionElement.innerHTML = response.data.condition.description;
-  let humidityElement = document.querySelector("#humidity");
-  humidityElement.innerHTML = response.data.temperature.humidity;
-  let windElement = document.querySelector("#wind");
-  windElement.innerHTML = Math.round(response.data.wind.speed);
-  let iconElement = document.querySelector("#icon");
-  iconElement.setAttribute(
-    "src",
-    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
-  );
-  iconElement.setAttribute("alt", response.data.condition.description);
-}
-
 let now = new Date();
 let h2 = document.querySelector("h2");
 let hours = now.getHours();
@@ -63,6 +44,26 @@ let year = now.getFullYear();
 
 h2.innerHTML = `${day} ${month} ${date}, ${year} ${hours}:${minutes}`;
 
+function displayTemperature(response) {
+  let temperatureElement = document.querySelector("#temperature");
+  let cityElement = document.querySelector("#city");
+  let descriptionElement = document.querySelector("#description");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+  let iconElement = document.querySelector("#icon");
+  celsiusTemperature = response.data.temperature.current;
+  temperatureElement.textContent = Math.round(celsiusTemperature);
+  cityElement.textContent = response.data.city;
+  descriptionElement.textContent = response.data.condition.description;
+  humidityElement.textContent = Math.round(response.data.temperature.humidity);
+  windElement.textContent = Math.round(response.data.wind.speed);
+  iconElement.setAttribute(
+    "src",
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+  );
+  iconElement.setAttribute("alt", response.data.condition.description);
+}
+
 function search(value) {
   let key = "8b0d9fa4b250096d3e2803d0f00fatob";
   let query = `${value}`;
@@ -76,7 +77,32 @@ function handleSubmit(event) {
   search(cityInputElement.value);
 }
 
+function displayFahrenheit(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  fahrenheitLink.classList.add("active");
+  celsiusLink.classList.remove("active");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.textContent = Math.round(fahrenheitTemperature);
+}
+
+function displayCelsius(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.textContent = Math.round(celsiusTemperature);
+}
+
+let celsiusTemperature = null;
+
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsius);
 
 search("New York");
