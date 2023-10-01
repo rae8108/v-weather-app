@@ -1,5 +1,4 @@
 function displayTemperature(response) {
-  console.log(response.data);
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(response.data.temperature.current);
   let cityElement = document.querySelector("#city");
@@ -64,9 +63,20 @@ let year = now.getFullYear();
 
 h2.innerHTML = `${day} ${month} ${date}, ${year} ${hours}:${minutes}`;
 
-let key = "8b0d9fa4b250096d3e2803d0f00fa";
-let apiUrl =
-  "https://api.shecodes.io/weather/v1/current?query=New%20York&key=8b0d9fa4b250096d3e2803d0f00fatob&units=metric";
+function search(value) {
+  let key = "8b0d9fa4b250096d3e2803d0f00fatob";
+  let query = `${value}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${query}&key=${key}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
 
-console.log(apiUrl);
-axios.get(apiUrl).then(displayTemperature);
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
+}
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
+
+search("New York");
