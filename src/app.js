@@ -1,78 +1,88 @@
-let now = new Date();
-let h2 = document.querySelector("h2");
-let hours = now.getHours();
+function formatDate(timestamp) {
+  let now = new Date();
+  let h2 = document.querySelector("h2");
+  let hours = now.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = now.getMinutes();
 
-if (hours < 10) {
-  hours = `0${hours}`;
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let day = days[now.getDay()];
+  let month = months[now.getMonth()];
+  let date = now.getDate();
+  let year = now.getFullYear();
+
+  h2.innerHTML = `${day} ${month} ${date} ${year} ${hours}:${minutes};`;
 }
 
-let minutes = now.getMinutes();
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-if (minutes < 10) {
-  minutes = `0${minutes}`;
+  return days[day];
 }
-
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-let day = days[now.getDay()];
-let month = months[now.getMonth()];
-let date = now.getDate();
-let year = now.getFullYear();
-
-h2.innerHTML = `${day} ${month} ${date}, ${year} ${hours}:${minutes}`;
-
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
+
   let forecastElement = document.querySelector("#forecast");
 
-  let days = ["Thur", "Fri", "Sat"];
-
-  let forecastHTML = `<div class=row>`;
-
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
-    <div class="col-2">
-      <div class="weather-forecast-date">${day}</div>
-      <img
-        src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/mist-day.png"
-        alt=""
-        width="36"
-      />
-      <div class="weather-forecast-temperature">
-        <span class="weather-forecast-temperature-max">18°</span>
-        <span clas="weather-forecast-min">12°</span>
-      </div>
-    </div>
-  `;
+  let forecastHTML = `<div class= "row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
+          <div class="col-2">
+                <div class ="weather-forecast-date"> 
+               ${formatDay(forecastDay.time * 1000)}
+               </div>
+                <img src="${forecastDay.condition.icon_url}" 
+                alt="" 
+                width="35">
+            <div class="weather-forecast-temperature"> 
+              <span class="weather-forecast-temperature-max">${Math.round(
+                forecastDay.temperature.maximum
+              )}°</span>
+               <span class="weather-forecast-temperature-min">${Math.round(
+                 forecastDay.temperature.minimum
+               )}°</span>
+             </div>
+              </div>
+        `;
+    }
   });
 
-  forecastHTML = forecastHTML + `</div`;
+  forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
+  console.log(forecastHTML);
 }
 
 function getForecast(coordinates) {
