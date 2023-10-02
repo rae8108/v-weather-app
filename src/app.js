@@ -44,6 +44,36 @@ let year = now.getFullYear();
 
 h2.innerHTML = `${day} ${month} ${date}, ${year} ${hours}:${minutes}`;
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Thur", "Fri", "Sat"];
+
+  let forecastHTML = `<div class=row>`;
+
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="col-2">
+      <div class="weather-forecast-date">${day}</div>
+      <img
+        src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/mist-day.png"
+        alt=""
+        width="36"
+      />
+      <div class="weather-forecast-temperature">
+        <span class="weather-forecast-temperature-max">18°</span>
+        <span clas="weather-forecast-min">12°</span>
+      </div>
+    </div>
+  `;
+  });
+
+  forecastHTML = forecastHTML + `</div`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
@@ -95,6 +125,7 @@ function displayCelsius(event) {
 }
 
 let celsiusTemperature = null;
+displayForecast();
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
