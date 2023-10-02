@@ -52,7 +52,8 @@ small {
 }
 
 .weather-app {
-  max-width: 420px;
+  max-width: 600px;
+
   margin: 30px auto;
   padding: 20px;
   border: 1px solid black;
@@ -85,4 +86,22 @@ small {
 
 .weather-temperature .active:hover {
   text-decoration: none;
+}
+
+.weather-forecast {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.weather-forecast-date {
+  font-size: 15px;
+  opacity: 0.5;
+}
+
+.weather-forecast-temperature {
+  font-size: 13px;
+}
+
+.weather-forecast-temperature-min {
+  opacity: 0.5;
 }
