@@ -52,7 +52,7 @@ small {
 }
 
 .weather-app {
-  max-width: 600px;
+  max-width: 420px;
   margin: 30px auto;
   padding: 20px;
   border: 1px solid black;
@@ -73,7 +73,7 @@ small {
 
 .weather-temperature .units {
   position: relative;
-  font-size: 16px;
+  font-size: 13px;
   top: -30px;
 }
 
