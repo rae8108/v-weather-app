@@ -84,11 +84,9 @@ function displayForecast(response) {
 
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-  console.log(forecastHTML);
 }
 
 function getForecast(coordinates) {
-  console.log(coordinates);
   let key = "8b0d9fa4b250096d3e2803d0f00fatob";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${key}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
