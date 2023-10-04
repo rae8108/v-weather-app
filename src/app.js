@@ -1,6 +1,6 @@
 function formatDate(timestamp) {
   let now = new Date();
-  let h2 = document.querySelector("h2");
+
   let hours = now.getHours();
   if (hours < 10) {
     hours = `0${hours}`;
@@ -11,7 +11,7 @@ function formatDate(timestamp) {
     minutes = `0${minutes}`;
   }
 
-  let days = [
+  let daysOfWeek = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -34,21 +34,23 @@ function formatDate(timestamp) {
     "November",
     "December",
   ];
-  let day = days[now.getDay()];
+  let dayOfWeek = daysOfWeek[now.getDay()];
   let month = months[now.getMonth()];
-  let date = now.getDate();
   let year = now.getFullYear();
 
-  h2.innerHTML = `${day} ${month} ${date} ${year} ${hours}:${minutes};`;
+  return `${dayOfWeek} ${now.getDate()} ${month} ${year} ${hours}:${minutes}`;
 }
+
+let h2 = document.querySelector("h2");
+h2.textContent = formatDate(Date.now());
 
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
   return days[day];
 }
+
 function displayForecast(response) {
   let forecast = response.data.daily;
 
@@ -62,7 +64,7 @@ function displayForecast(response) {
         `
           <div class="col-2">
                 <div class ="weather-forecast-date"> 
-               ${formatDay(forecastDay.time * 1000)}
+               ${formatDay(forecastDay.time)}
                </div>
                 <img src="${forecastDay.condition.icon_url}" 
                 alt="" 
@@ -89,7 +91,6 @@ function getForecast(coordinates) {
   console.log(coordinates);
   let key = "8b0d9fa4b250096d3e2803d0f00fatob";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${key}&units=metric`;
-  console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
 }
 
